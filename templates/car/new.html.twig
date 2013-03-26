@@ -1,0 +1,35 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+<div class="page-header">
+    <h1>Nuevo Auto</h1>
+</div>
+
+<form class="well span6" action="{{ path('car_new', { 'customerId': customerId }) }}" method="post" enctype="multipart/form-data">
+	<input type="hidden" id="customer_id" name="customer_id" value="{{ customerId }}" />
+	<fieldset>
+		<div class="row">
+			<div class="span3">
+				<label for="name">Marca</label>
+				<input id="make" name="make" class="span3" type="text" placeholder="">
+				<label>Modelo</label>
+				<input id="model" name="model" class="span3" type="text" placeholder="">
+				<label>Matrícula</label>
+				<input id="plate" name="plate" class="span3" type="text" placeholder="">
+			</div>
+
+			<div class="span3">
+				<label>Notas</label>
+				<textarea id="notes" name="notes" class="span3" rows="5"></textarea>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="button" class="btn">Cancelar</button>
+				</div>
+			</div>
+
+	    </div>
+	</fieldset>
+</form>
+
+{% endblock %}

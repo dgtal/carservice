@@ -1,0 +1,36 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+<div class="page-header">
+    <h1>Editar Cliente</h1>
+</div>
+
+<form class="well span6" action="{{ path('customer_edit', { 'customerId': entity.id }) }}" method="post" enctype="multipart/form-data">
+	<fieldset>
+		<div class="row">
+			<div class="span3">
+				<label for="name">Nombre</label>
+				<input id="firstname" name="firstname" class="span3" type="text" placeholder="" value="{{entity.firstname}}">
+				<label>Apellido</label>
+				<input id="lastname" name="lastname" class="span3" type="text" placeholder="" value="{{entity.lastname}}">
+				<label>E-Mail</label>
+				<input id="email" name="email" class="span3" type="text" placeholder="" value="{{entity.email}}">
+				<label>Teléfono</label>
+				<input id="phonenumber" name="phonenumber" class="span3" type="text" placeholder="" value="{{entity.phonenumber}}">
+			</div>
+
+			<div class="span3">
+				<label>Notas</label>
+				<textarea id="notes" name="notes" class="span3" rows="5">{{entity.notes}}</textarea>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="button" class="btn">Cancelar</button>
+				</div>
+			</div>
+
+	    </div>
+	</fieldset>
+</form>
+
+{% endblock %}

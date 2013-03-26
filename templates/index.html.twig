@@ -1,13 +1,32 @@
 {% extends "layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="css/typeahead.js-bootstrap.css" type="text/css" media="screen">
+{% endblock %}
+
 {% block body %}
-	<div class="page-header">
-	    <h1>Dash Board</h1>
-	</div>
-	<p>
-    	ACA PODEMOS MOSTRAR LOS AUTOS DENTRO DEL TALLER
-    </p>
-    <p>
-	    AVISOS PARA CLIENTES
-	</p>
+    <form class="form-search">
+        <input id="search" name="search" type="text" style="padding: 11px 19px; font-size: 17.5px;" class="span6 search-query" placeholder="Buscar...">
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="js/typeahead.min.js"></script>
+
+    <script>
+        $('#search').typeahead(
+            {
+                name: 'customers',
+                valueKey: 'firstname',
+                remote: '/customer/search?s=%QUERY'
+            }
+        ).on('typeahead:selected', function(event, customer) {
+            //$('#customer_id').val(customer.id);
+            //populateSelect(customer.id);
+        });
+    </script>
 {% endblock %}

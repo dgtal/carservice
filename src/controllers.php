@@ -9,6 +9,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 // CUSTOMERS
 $app->mount('/customer', include 'customer.php');
 
+// CARS
+$app->mount('/car', include 'car.php');
+
+// WORKSHOP
+$app->mount('/workshop', include 'workshop.php');
+
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 })

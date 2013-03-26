@@ -21,18 +21,51 @@ $console
         $schema = $app['db']->getSchemaManager();
 
         if (!$schema->tablesExist('customers')) {
-            $customers = new Table('customers');
-            $customers->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
-            $customers->setPrimaryKey(array('id'));
-            $customers->addColumn('firstname', 'string', array('length' => 50));
-            $customers->addColumn('lastname', 'string', array('length' => 50));
-            $customers->addColumn('phonenumber', 'string', array('length' => 50));
-            $customers->addColumn('notes', 'text', array('length' => 255));
-            $customers->addColumn('created', 'datetime');
-            $schema->createTable($customers);
+            $table = new Table('customers');
+            $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
+            $table->setPrimaryKey(array('id'));
+            $table->addColumn('firstname', 'string', array('length' => 50));
+            $table->addColumn('lastname', 'string', array('length' => 50));
+            $table->addColumn('phonenumber', 'string', array('length' => 50));
+            $table->addColumn('notes', 'text', array('length' => 255));
+            $table->addColumn('created', 'datetime');
+            $schema->createTable($table);
         }
         else {
             $output->writeln("Table customers already exists.");
+        }
+
+        if (!$schema->tablesExist('cars')) {
+            $table = new Table('cars');
+            $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
+            $table->setPrimaryKey(array('id'));
+            $table->addColumn('customer_id', 'integer', array('unsigned' => true));
+            $table->addColumn('make', 'string', array('length' => 50));
+            $table->addColumn('model', 'string', array('length' => 50));
+            $table->addColumn('plate', 'string', array('length' => 10));
+            $table->addColumn('notes', 'text', array('length' => 255));
+            $table->addColumn('created', 'datetime');
+            $schema->createTable($table);
+        }
+        else {
+            $output->writeln("Table cars already exists.");
+        }
+
+        if (!$schema->tablesExist('workshop')) {
+            $table = new Table('workshop');
+            $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement' => true));
+            $table->setPrimaryKey(array('id'));
+            $table->addColumn('car_id', 'integer', array('unsigned' => true));
+            $table->addColumn('tasks', 'text');
+            $table->addColumn('kms', 'string', array('length' => 12));
+            $table->addColumn('startdate', 'datetime');
+            $table->addColumn('enddate', 'datetime');
+            $table->addColumn('done', 'integer', array('unsigned' => true));
+            $table->addColumn('created', 'datetime');
+            $schema->createTable($table);
+        }
+        else {
+            $output->writeln("Table workshop already exists.");
         }
     })
 ;

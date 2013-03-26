@@ -2,16 +2,16 @@
 
 {% block body %}
 <div class="page-header">
-    <h1>Clientes</h1>
+    <h1>@Taller</h1>
 </div>
 
 <table class="records_list table table-striped table-bordered table-hover">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Creado</th>
+            <th>Cliente</th>
+            <th>Vehículo</th>
+            <th>Ingresa</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -20,8 +20,8 @@
         <tr>
             <td><a href="{{ path('customer_show', { 'customerId': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.firstname }} {{ entity.lastname }}</td>
-            <td>{{ entity.phonenumber }}</td>
-            <td>{% if entity.created %}{{ entity.created|date('d-m-Y') }}{% endif %}</td>
+            <td>{{ entity.make }} {{ entity.model }} - {{ entity.plate }}</td>
+            <td>{% if entity.startdate %}{{ entity.startdate|date('d-m-Y') }}{% endif %}</td>
             <td>
                 <ul>
                     <li>
@@ -47,5 +47,5 @@
   </ul>
 </div>
 
-<a href="{{ path('customer_new') }}" class="btn btn-primary ">Crear nuevo cliente</a>
+<a href="{{ path('workshop_new') }}" class="btn btn-primary ">Nuevo ingreso</a>
 {% endblock %}

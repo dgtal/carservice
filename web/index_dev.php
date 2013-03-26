@@ -6,7 +6,9 @@ use Symfony\Component\HttpKernel\Debug\ExceptionHandler;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-error_reporting(-1);
+error_reporting(E_ALL);
+ini_set('display_errors', true);
+
 DebugClassLoader::enable();
 ErrorHandler::register();
 if ('cli' !== php_sapi_name()) {

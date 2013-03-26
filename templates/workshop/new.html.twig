@@ -1,0 +1,77 @@
+{% extends "layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="css/typeahead.js-bootstrap.css" type="text/css" media="screen">
+{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>Nueva entrada a taller</h1>
+</div>
+
+<form class="well span6" action="{{ path('workshop_new') }}" method="post" enctype="multipart/form-data">
+    <input id="customer_id" name="customer_id" class="span3" type="hidden" placeholder="">
+    <fieldset>
+        <div class="row">
+            <div class="span3">
+                <label for="name">Cliente</label>
+                <input id="customer" name="customer" class="span3" type="text" placeholder="" autocomplete="off">
+                <label>Vehículo</label>
+                <select id="car_id" name="car_id" class="span3">
+                </select>
+                <label>Kilómetros</label>
+                <input id="kms" name="kms" class="span3" type="text" placeholder="">
+            </div>
+
+            <div class="span3">
+                <label>Tareas a realizar</label>
+                <textarea id="tasks" name="tasks" class="span3" rows="5"></textarea>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="js/typeahead.min.js"></script>
+
+    <script>
+        $('#customer').typeahead(
+            {
+                name: 'customers',
+                valueKey: 'firstname',
+                remote: '/customer/search?s=%QUERY'
+            }
+        ).on('typeahead:selected', function(event, customer) {
+            $('#customer_id').val(customer.id);
+            populateSelect(customer.id);
+        });
+
+        function populateSelect(customerId) {
+            $.getJSON('/car/customer/' + customerId, function(data){
+                var dataLength  = data.length;
+                var html = [];
+
+                for (var i = 0, len = dataLength; i < len; i++) {
+                    html[html.length] = "<option value=";
+                    html[html.length] = data[i].id;
+                    html[html.length] = ">";
+                    html[html.length] = data[i].make + ' ' + data[i].model + ' - ' + data[i].plate;
+                    html[html.length] = "</option>";
+                }
+
+                $('#car_id').append(html.join(''));
+            });
+        }
+    </script>
+{% endblock %}
